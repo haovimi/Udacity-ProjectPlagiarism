@@ -24,7 +24,7 @@ def model_fn(model_dir):
 
     # Determine the device and construct the model.
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = BinaryClassifier(model_info['input_features'], model_info['hidden_dim'], model_info['output_dim'])
+    model = BinaryClassifier(model_info['input_features'], model_info['hidden_dim'], model_info['output_dim']).double()
 
     # Load the stored model parameters.
     model_path = os.path.join(model_dir, 'model.pth')
@@ -148,7 +148,7 @@ if __name__ == '__main__':
 
     ## TODO: Define an optimizer and loss function for training
     optimizer = optim.Adam(model.parameters(), lr=0.001)
-    criterion = nn.BCEWithLogitsLoss()
+    # criterion = nn.BCEWithLogitsLoss()
     criterion = nn.BCELoss()
 
     # Trains the model (given line of code, which calls the above training function)
